@@ -5,14 +5,26 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+import {ChartsModule } from 'ng2-charts';
+import {ChartModule} from 'angular2-highcharts';
+
+import {HelloWorldComponent} from './shared/helloworld/helloworld.component';
+import {DoughnutChartDemoComponent} from './shared/chartjs/doughnutChartDemo.component';
+import {HighchartComponentDemo} from './shared/highcharts/highchart.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HelloWorldComponent,
+    DoughnutChartDemoComponent,
+    HighchartComponentDemo
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ChartsModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
