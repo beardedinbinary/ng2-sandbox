@@ -1,8 +1,14 @@
-<div style="display: block; width: 25%;">
+<select [(ngModel)]="chartType">
+    <option *ngFor="let chartType of chartTypes" value={{chartType}}>{{chartType|uppercase}}</option>
+</select>
+
+<button (click)="showChartAs('line')">Line</button>
+<button (click)="showChartAs('bar')">Bar</button>
+<button (click)="addDataPoint()">Update</button>
+<div style="display: block; width: 33.33% ">
   <canvas baseChart
               [data]="chartData"
               [labels]="chartLabels"
-              [chartType]="chartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+              [chartType]="chartType">
+  </canvas>
 </div>

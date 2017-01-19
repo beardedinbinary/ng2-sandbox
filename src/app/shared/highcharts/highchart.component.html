@@ -1,19 +1,10 @@
-import {Component} from '@angular/core';
-
-@Component({
-    selector: 'simple-chart-example',
-    template: `
-        <chart [options]="options"></chart>
-        `
-})
-export class HighchartComponentDemo {
-    constructor() {
-        this.options = {
-            title: {text : 'simple chart'}
-            series: [{
-                data: [29.9, 71.5, 106.4, 129.2],
-            }]
-        };
-    }
-    options HighchartOptions;
-}
+<select [(ngModel)]="options.chart.type" 
+(change)="showChartAs($event.target.value)"> 
+<option *ngFor="let chartType of chartTypes" value={{chartType}}>{{chartType|uppercase}}</option>
+</select>
+<div>{{options.chart.type}}</div>
+<button (click)="showChartAs('line')">Line</button>
+<button (click)="showChartAs('area')">Area</button>
+<chart [options]="options"
+    (load)="saveInstance($event.context)">
+</chart>
