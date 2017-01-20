@@ -9,6 +9,7 @@
   <canvas baseChart
               [data]="chartData"
               [labels]="chartLabels"
-              [chartType]="chartType">
+              [chartType]="chartType"
+              (load)="saveInstance($event.context)">
   </canvas>
 </div>

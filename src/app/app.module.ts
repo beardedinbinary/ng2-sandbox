@@ -15,6 +15,7 @@ import {HighchartComponentDemo} from './shared/highcharts/highchart.component';
 import {DynamicChartComponent } from './shared/highcharts/dynamic-chart/dynamic-chart.component';
 import {ChartJsComponent } from './shared/chartjs/chartjs.component';
 import { BarchartComponent } from './shared/barchart/barchart.component';
+import { DynamicLineComponent } from './shared/chartjs/dynamic-line/dynamic-line.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BarchartComponent } from './shared/barchart/barchart.component';
     HighchartComponentDemo,
     DynamicChartComponent,
     ChartJsComponent,
-    BarchartComponent
+    BarchartComponent,
+    DynamicLineComponent
   ],
   imports: [
     BrowserModule,

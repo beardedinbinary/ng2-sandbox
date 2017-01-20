@@ -18,10 +18,8 @@ export class ChartJsComponent {
       this.chart = chartInstance;
       console.log(this.chart);
   }
-  public addDataPoint(){
-      this.chartData.push(Math.round(Math.random() * 1000));
-      this.chartLabels.push('new data');
-      console.log(this.chart);
+ public addDataPoint(){
+      this.chartData[1] = 800;
   }
   public chartClicked(e:any):void {
     console.log(e);

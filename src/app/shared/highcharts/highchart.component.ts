@@ -32,7 +32,7 @@ export class HighchartComponentDemo {
         console.log(chartInstance);
     }
     showChartAs(newChartType){
-        this.options = newChartType;
+        //this.options = newChartType;
         this.chart.update({
             chart:{
                 type: newChartType 
