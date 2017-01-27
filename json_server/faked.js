@@ -1,16 +1,19 @@
 var faker = require('faker');
 
-var randomName = faker.name.findName();
-var randomEmail = faker.internet.email();
-var randomEmail = faker.internet.email();
 
-//requests
-/*
-    requestID = string ['12345', '12345asd']
-    requestType = faker.random.arrayElement(['installation', 'repair', 'site visit', 'upgrade', 'basic']
-    requestStatus = faker.random.arrayElement(['Open', 'hold', 'complete']);
-    description = faker.lorum.sentence();
-    placeId = faker.random.arrayElement(['A200']);
-    Name = string ['Aero Tech']
-    created = faker.date.recent('30');
-*/
+module.exports = function(){
+    var data = { service_requests: []}
+    for(var i = 0; i< 100; i++ ){
+        data.service_requests.push({
+            id: i,
+            requestType: faker.random.arrayElement(['installation', 'repair', 'site visit', 'upgrade', 'basic']),
+            requestStatus: faker.random.arrayElement(['Open', 'hold', 'complete']),
+            description: faker.lorem.sentence(),
+            placeId: faker.random.arrayElement(['A200','A300']),
+            name: 'Aero Tech',
+            created: faker.date.recent('30'),
+            priority: faker.random.arrayElement(['Urgent','High','Medium','When Available'])
+        });
+    }
+    return data
+}
