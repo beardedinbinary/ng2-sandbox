@@ -27,4 +27,9 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
     this.getServiceRequests();
   }
+
+  chartFilterEvent(event){
+    console.log(event);
+  }
+
 }

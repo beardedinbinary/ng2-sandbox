@@ -1,11 +1,13 @@
-<div class="container">
+<div class="container" (seriesClick)="chartFilterEvent($event)">
     <h1 class="center">Service Requests</h1>
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <app-table [requests]="requests"></app-table>
+<div class="container" >
+    <div class="row">
+
+        <app-chart [requests]="requests"></app-chart>
     </div>
-    <div class="col-md-6" style="background: grey;">
-        <app-chart></app-chart>
+    <div class="row" style="padding: 0 0 60px 0;">
+        <app-table  [requests]="requests" (seriesClick)="filterFromChart($event)"></app-table>
     </div>
+    
 </div>

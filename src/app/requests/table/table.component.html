@@ -1,14 +1,14 @@
-<kendo-grid [data]='requests' [sort]="sort" [height]="370">
+<kendo-grid [data]='gridView' [sortable]="{ mode: 'multiple'}" [sort]="sort" [height]="370" (sortChange)="sortChange($event)" (categoryClick)="filterFromChart($event)">
 <kendo-grid-column field="id" title="ID" width="40">
     <template kendoGridCellTemplate let-dataItem>
         <a href="/{{dataItem.id}}">{{dataItem.id}}</a>
     </template>
 </kendo-grid-column>
-<kendo-grid-column field="requestType" title="RequestType" width="250">
+<kendo-grid-column field="requestType" title="RequestType" width="80">
 </kendo-grid-column>
-<kendo-grid-column field="requestStatus" title="Status">
+<kendo-grid-column field="requestStatus" title="Status" width="80">
 </kendo-grid-column>
-<kendo-grid-column field="description" title="Description" width="80">
+<kendo-grid-column field="description" title="Description" width="250">
 </kendo-grid-column>
 <kendo-grid-column field="placeId" title="Place Id" width="80">
 </kendo-grid-column>
