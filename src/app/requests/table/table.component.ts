@@ -8,8 +8,7 @@ import {ServiceRequest} from '../request'
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements 
-OnChanges, OnInit{
+export class TableComponent implements OnInit{
   @Input() requests;
 
   private sort: SortDescriptor[] = [];
@@ -19,19 +18,13 @@ OnChanges, OnInit{
 
   constructor() { }
   
-  ngOnChanges() {
-    if(!this.gridData){
-     this.gridData = this.requests;
-    }else{
-      this.loadData();
-    }
-  }
-
   ngOnInit(){
-    //console.log('init');
+    this.gridData = this.requests;
+    this.loadData();
   }
 
   protected sortChange(sort: SortDescriptor[]): void{
+    console.log(sort);
     this.sort = sort;
     this.loadData();
   }

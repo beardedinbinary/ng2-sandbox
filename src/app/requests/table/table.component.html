@@ -1,4 +1,4 @@
-<kendo-grid [data]='gridView' [sortable]="{ mode: 'multiple'}" [sort]="sort" [height]="370" (sortChange)="sortChange($event)" (categoryClick)="filterFromChart($event)">
+<kendo-grid [data]='gridView' [sortable]="{ mode: 'multiple'}" [sort]="sort" [height]="370" (sortChange)="sortChange($event)" >
 <kendo-grid-column field="id" title="ID" width="40">
     <template kendoGridCellTemplate let-dataItem>
         <a href="/{{dataItem.id}}">{{dataItem.id}}</a>

@@ -1,28 +1,27 @@
-import { Http } from '@angular/http';
-
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { ServiceRequest } from './request';
+import { Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+//import { REQUESTS } from './mock-requests';
 import 'rxjs/add/operator/toPromise';
-import {ServiceRequest} from './request';
-import {REQUESTS} from './mock-requests';
-import {Injectable} from '@angular/core';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class ServiceRequestService{
+export class ServiceRequestService {
 
-    constructor(private http: Http){}
+    constructor(private http: Http) {}
+    private requestUrl = 'http://localhost:3000/service_requests';
 
-    getServiceRequests(): Promise<ServiceRequest[]> {
-        /*return this.http.get('http://localhost:3000/service_requests')
-                    .toPromise()
-                    .then(response => response.json().data as ServiceRequest[])
-                    .catch(this.handleError);
-                    */
-
-
-
-        return Promise.resolve(REQUESTS);
+    getServiceRequests(): Observable<ServiceRequest[]> {
+        return this.http.get(this.requestUrl)
+            .map((res: Response) => res.json())
+            .catch((error: any) => this.handleError(error));
     }
-    private handleError(error: any): Promise<any>{
+
+    private handleError(error: any): Observable<any> {
         console.log('An error occurred', error);
-        return Promise.reject(error.message || error);
+        return Observable.throw(error.json().error || 'Server error');
     }
 }

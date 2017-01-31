@@ -1,3 +1,5 @@
+import * as https from 'https';
+import { Http } from '@angular/http';
 import { TableComponent } from './table/table.component';
 import { Component, OnInit, Output} from '@angular/core';
 import { ServiceRequest } from './request';
@@ -16,20 +18,18 @@ export class RequestsComponent implements OnInit {
 
   requests: ServiceRequest[];
 
-  constructor(private serviceRequestService: ServiceRequestService){
+  constructor(private serviceRequestService: ServiceRequestService){}
 
-  }
-
-  getServiceRequests(): void{
+  loadServiceRequests(){
     this.serviceRequestService.getServiceRequests()
-                          .then(requests => this.requests = requests);
+                  .subscribe(
+                    requests => {this.requests = requests },
+                      err => {
+                        console.log(err);
+                      })
   }
   ngOnInit(): void {
-    this.getServiceRequests();
-  }
+    this.loadServiceRequests();
 
-  chartFilterEvent(event){
-    console.log(event);
   }
-
 }

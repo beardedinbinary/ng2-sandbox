@@ -1,6 +1,5 @@
-import { EventEmitter } from 'events';
-import { Item } from '@progress/kendo-angular-grid/dist/npm/data.iterators';
 import { Component, OnInit, Input, Output, OnChanges } from '@angular/core';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-chart',
@@ -16,8 +15,9 @@ export class ChartComponent implements OnInit, OnChanges {
   currentChartCategory = 'priority';
   chartCategories = ['priority', 'requestType'];
   categories;
-  chartData=[]; 
+  chartData; 
 
+  private sortByOptions: string[];
 
   private count = function(array,classifier){
     return array.reduce(function(counter, item){
@@ -33,28 +33,28 @@ export class ChartComponent implements OnInit, OnChanges {
     return this.categories = this.getCategories(categoryType)
   }
   ngOnChanges() {
-    /*if(this.requests){
-      let prioritycount = this.count(this.requests, item=>item.priority);
-      console.log(prioritycount);
-      this.showChartCategoryAs(prioritycount);
-    }
-    */
 
     if(this.requests){
+      this.sortByOptions = Object.keys(this.requests)
+
       let requestTypeCount = this.count(this.requests, item=>item.requestType);
       console.log(requestTypeCount);
+
       this.showChartCategoryAs(requestTypeCount);
+
       let data = [];
+
       Object.keys(requestTypeCount).forEach(function(key){
        data.push(requestTypeCount[key]);
       });
+
       this.chartData = data;
     }
   }
   ngOnInit() {
   }
 
-  private onSeriesClick(e): void{
+  onSeriesClick(e): void{
     console.log('onSeriesClick', e)
     this.seriesClick.emit(e.category);
   }
