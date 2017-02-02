@@ -1,0 +1,12 @@
+<div class="container" >
+    <h1 class="center">Service Requests</h1>
+</div>
+<div class="container" *ngIf="requests">
+    <div class="row">
+        <app-chart  [requests]="requests"></app-chart>
+    </div>
+    <div class="row" style="padding: 0 0 60px 0;">
+        <app-table  [requests]="requests"></app-table>
+    </div>
+    
+</div>

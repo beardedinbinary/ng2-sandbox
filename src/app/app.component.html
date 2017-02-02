@@ -1,8 +1,16 @@
-<h1> {{title}} </h1>
-
-<app-dynamic-line></app-dynamic-line>
-<hr/>
-<simple-chart-example></simple-chart-example>
-<hr/>
-<dynamic-chart-example><dynamic-chart-example>
-<hr/>
+<div class="container">
+    <div class="row">
+        <h1> {{title}} </h1>
+        <div class="navbar">
+            <nav>
+                <a routerLink="/service-requests">Requests</a>
+                <a routerLink="/dashboard">Home</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <router-outlet></router-outlet>
+    </div>
+</div>
