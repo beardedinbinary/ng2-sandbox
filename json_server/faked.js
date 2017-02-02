@@ -10,7 +10,7 @@ module.exports = function(){
             requestStatus: faker.random.arrayElement(['Open', 'hold', 'complete']),
             description: faker.lorem.sentence(),
             placeId: faker.random.arrayElement(['A200','A300']),
-            name: 'Aero Tech',
+            name: faker.random.arrayElement(['Aero Tech','Metrix','Massive Dynamic', 'Umbrella Corp.']),
             created: faker.date.recent('30'),
             priority: faker.random.arrayElement(['Urgent','High','Medium','When Available'])
         });

@@ -3,7 +3,12 @@
 <option *ngFor="let displayType of displayTypes" value={{displayType}}>{{displayType|uppercase}}</option>
 </select>
 
-<kendo-chart *ngIf="requests" [categoryAxis]="{ categories: categories }"
+<select [(ngModel)]="currentChartParam" 
+(change)="showChartWithParam($event.target.value)"> 
+<option *ngFor="let chartParam of chartParams" value={{chartParam}}>{{chartParam|uppercase}}</option>
+</select>
+
+<kendo-chart [categoryAxis]="{ categories: categories }"
 (seriesClick)="onSeriesClick($event)">
   <kendo-chart-title text="{{title}}"></kendo-chart-title>
   <kendo-chart-legend visible="false" position="top" orientation="horizontal"></kendo-chart-legend>
