@@ -2,23 +2,27 @@ import { ServiceRequest } from '../request';
 import { Component, OnInit, Input, Output, OnChanges } from '@angular/core';
 import { ServiceRequestService} from '../request.service';
 import { EventEmitter } from 'events';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit, OnChanges {
+export class ChartComponent implements OnInit {
   @Input() requests;
-
-  constructor(private serviceRequestService:ServiceRequestService){}
 
   private displayTypes: string[] = ['column','bar','line','area','verticalArea','pie','donut'];
   private chartParams: string[] = ['requestType', 'requestStatus', 'name', 'priority'];
   currentChartType = 'column';
   currentChartParam = this.chartParams[0];
   categories;
+  chartStore;
   chartData; 
+
+  constructor(private serviceRequestService:ServiceRequestService, store: Store<any>){
+    this.chartStore = store.select('chart')
+  }
 
   private sortByOptions: string[];
 
@@ -30,6 +34,7 @@ export class ChartComponent implements OnInit, OnChanges {
                           console.log(err);
                         })
     }
+
   private count = function(array,classifier){
     return array.reduce(function(counter, item){
       let property = (classifier || String)(item);
@@ -45,14 +50,13 @@ export class ChartComponent implements OnInit, OnChanges {
   }
   showChartWithParam(param){
     this.currentChartParam = param;
-    this.serviceRequestService.setChartSeriesCategory(param);
+    this.chartStore.dispatch({type:'CAT_CHANGE', payload: param});
     this.getChartData();
   }
   getChartData(){
       this.sortByOptions = Object.keys(this.requests)
 
       let requestTypeCount = this.count(this.requests, item=>item[this.currentChartParam]);
-      console.log("getchartdata",requestTypeCount);
       this.showChartCategoryAs(requestTypeCount);
 
       let data = [];
@@ -63,15 +67,13 @@ export class ChartComponent implements OnInit, OnChanges {
 
       this.chartData = data;
   }
-  ngOnChanges() {
-  }
+
   ngOnInit() {
      this.getChartData();
-     this.serviceRequestService.setChartSeriesCategory(this.currentChartParam);
   }
 
   onSeriesClick(e): void{
-    this.serviceRequestService.setChartSeriesClick(e);
+    this.chartStore.dispatch({type:'CAT_SELECT', current_category: e.category, current_filter: this.currentChartParam});
   }
 
   showChartAs(displayType){

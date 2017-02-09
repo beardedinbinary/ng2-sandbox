@@ -3,24 +3,41 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ServiceRequest } from './request';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
+import { Store } from '@ngrx/store';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+class chartFilterStore {
+    currentCategory: string;
+    currentFilter: string;
+}
+
 @Injectable()
 export class ServiceRequestService {
 
-    private chartSeriesClickSource = new Subject<string>();
-    private chartSeriesCategoryChange = new Subject<string>();
-
-    chartSeriesClick$ = this.chartSeriesClickSource.asObservable();
-    chartSeriesCategoryChange$ = this.chartSeriesCategoryChange.asObservable();
-
     private requestUrl = 'http://localhost:3000/service_requests';
 
-    constructor(private http: Http) {
-        console.log('request service instantiated');
+    chartStore;
+
+    constructor(private http: Http, store: Store<chartFilterStore>){
+        this.chartStore = store.select('chart');
+
+        /*
+        this.chartCategorySubscription = store.select('request').subscribe(
+                              chartCategoryFilter => {
+                                this.chartCategory = chartCategoryFilter['currentCategory'];
+                                this.chartFilter = chartCategoryFilter['currentFilter'];
+                              },
+                              err => {
+                                console.log(err);
+                              });
+        }
+        */
+  
+
+        console.log(this.chartStore);
     }
 
     private handleError(error: any): Observable<any> {
@@ -34,21 +51,4 @@ export class ServiceRequestService {
             .catch((error: any) => this.handleError(error));
     }
 
-    setChartSeriesClick(e){
-        let category = e.category;
-        this.chartSeriesClickSource.next(category);
-    }
-
-    getChartSeriesClick(){
-        return this.chartSeriesClick$; 
-    }
-
-    setChartSeriesCategory(chartParam){
-        this.chartSeriesCategoryChange.next(chartParam);
-        console.log(chartParam);
-        console.log("categoryset: ", this.chartSeriesCategoryChange$);
-    }
-    getChartSeriesCategory(){
-        return this.chartSeriesCategoryChange$;
-    }
 }

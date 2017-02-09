@@ -6,6 +6,12 @@ import * as events from 'events';
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import {SortDescriptor, orderBy} from '@progress/kendo-data-query';
 import {ServiceRequest} from '../request';
+import {Store} from '@ngrx/store';
+
+  class chartFilterStore {
+    currentCategory: string;
+    currentFilter: string;
+  }
 
 @Component({
   selector: 'app-table',
@@ -23,32 +29,24 @@ export class TableComponent implements OnInit, OnDestroy{
   chartSeriesSubscription: Subscription;
   chartCategorySubscription: Subscription;
 
-  constructor(private serviceRequestService: ServiceRequestService) {
-     
-    this.chartCategorySubscription = this.serviceRequestService.chartSeriesCategoryChange$.subscribe(
+  constructor(private serviceRequestService: ServiceRequestService, private store:Store<chartFilterStore>) {
+    /*
+    this.chartCategorySubscription = store.select('request').subscribe(
                               chartCategoryFilter => {
-                                this.chartCategory = chartCategoryFilter;
+                                this.chartCategory = chartCategoryFilter['currentCategory'];
+                                this.chartFilter = chartCategoryFilter['currentFilter'];
                               },
                               err => {
                                 console.log(err);
                               });
-
-    this.chartSeriesSubscription = this.serviceRequestService.chartSeriesClick$.subscribe(
-                              chartFilter => {
-                                this.filterFromChart(this.chartCategory, chartFilter);
-                              },
-                              err => {
-                                console.log(err);
-                              });
+                              */
    }
   
   ngOnInit(){
     this.gridData = this.requests;
     this.loadData();
-
   }
   ngOnDestroy(){
-    this.chartSeriesSubscription.unsubscribe()
     this.chartCategorySubscription.unsubscribe()
   }
 

@@ -1,3 +1,5 @@
+import { reducer } from './requests/requests.reducer';
+import { StoreModule } from '@ngrx/store';
 import { ServiceRequest } from './requests/request';
 import { ServiceRequestService } from './requests/request.service';
 import { NgModule } from '@angular/core';
@@ -5,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { ChartsModule } from 'ng2-charts';
 import { ChartModule } from 'angular2-highcharts';
@@ -56,12 +58,15 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    StoreModule.provideStore({request:reducer}),
     BrowserModule,
     FormsModule,
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     HttpModule,
     ChartsModule,
     ChartModule,
     KendoChartsModule,
+
     //InMemoryWebApiModule.forRoot(InMemoryDataService),
     GridModule,
   ],
