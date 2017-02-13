@@ -30,16 +30,19 @@ export class TableComponent implements OnInit, OnDestroy{
   chartCategorySubscription: Subscription;
 
   constructor(private serviceRequestService: ServiceRequestService, private store:Store<chartFilterStore>) {
-    /*
     this.chartCategorySubscription = store.select('request').subscribe(
                               chartCategoryFilter => {
                                 this.chartCategory = chartCategoryFilter['currentCategory'];
                                 this.chartFilter = chartCategoryFilter['currentFilter'];
+                                console.log(chartCategoryFilter);
+                                if(Object.keys(chartCategoryFilter).length === 2){
+                                  this.filterFromChart(this.chartFilter, this.chartCategory);
+                                }
+
                               },
                               err => {
                                 console.log(err);
                               });
-                              */
    }
   
   ngOnInit(){
